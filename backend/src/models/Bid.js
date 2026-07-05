@@ -28,8 +28,9 @@ const Bid = sequelize.define('Bid', {
     allowNull: false,
   },
   status: {
-    type: DataTypes.ENUM('pending', 'accepted', 'rejected'),
+    type: DataTypes.STRING(20),
     defaultValue: 'pending',
+    validate: { isIn: [['pending', 'accepted', 'rejected']] },
   },
 }, {
   tableName: 'bids',

@@ -31,8 +31,9 @@ const Contract = sequelize.define('Contract', {
     type: DataTypes.DATE,
   },
   status: {
-    type: DataTypes.ENUM('active', 'completed', 'terminated'),
+    type: DataTypes.STRING(20),
     defaultValue: 'active',
+    validate: { isIn: [['active', 'completed', 'terminated']] },
   },
 }, {
   tableName: 'contracts',

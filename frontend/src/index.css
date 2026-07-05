@@ -44,11 +44,11 @@ a:hover { color: var(--accent-hover); }
 
 ::selection { background: var(--accent); color: white; }
 
-/* Layout */
+
 .layout { display: flex; flex-direction: column; min-height: 100vh; }
 .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
 
-/* Animations */
+
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -65,7 +65,7 @@ a:hover { color: var(--accent-hover); }
 .animate-in-d4 { animation-delay: 0.32s; }
 .animate-in-d5 { animation-delay: 0.4s; }
 
-/* Navbar */
+
 .navbar {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -104,7 +104,7 @@ a:hover { color: var(--accent-hover); }
 .nav-link:hover { color: var(--accent); background: var(--accent-light); }
 .nav-link.active { color: var(--accent); background: var(--accent-light); font-weight: 600; }
 
-/* Notification Bell */
+
 .notif-bell { position: relative; display: flex; align-items: center; }
 .notif-bell-btn {
   background: none; border: none; cursor: pointer;
@@ -150,7 +150,7 @@ a:hover { color: var(--accent-hover); }
 .notif-time { font-size: 0.7rem; color: var(--text-muted); }
 .notif-empty { padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
 
-/* Buttons */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -194,7 +194,7 @@ a:hover { color: var(--accent-hover); }
 .btn-sm { padding: 0.375rem 0.875rem; font-size: 0.8rem; }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
 
-/* Forms */
+
 .form-group { margin-bottom: 1.25rem; }
 .form-group label {
   display: block;
@@ -223,7 +223,7 @@ a:hover { color: var(--accent-hover); }
 .form-textarea { min-height: 120px; resize: vertical; }
 .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
 
-/* Cards */
+
 .card {
   background: var(--bg-card);
   border-radius: var(--radius);
@@ -233,7 +233,7 @@ a:hover { color: var(--accent-hover); }
 }
 .card-header { font-family: var(--font-display); font-size: 1.125rem; margin-bottom: 1rem; }
 
-/* Badges */
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -250,7 +250,7 @@ a:hover { color: var(--accent-hover); }
 .badge-pending { background: #f8fafc; color: var(--text-muted); }
 .badge-accepted { background: var(--success-light); color: var(--success); }
 
-/* Stats Grid */
+
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
 .stat-card {
   background: white;
@@ -265,7 +265,7 @@ a:hover { color: var(--accent-hover); }
 .stat-number { font-family: var(--font-display); font-size: 2.25rem; color: var(--accent); }
 .stat-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; font-weight: 500; }
 
-/* Home Page */
+
 .home-page { padding: 1rem 0; }
 .hero {
   text-align: center;
@@ -329,7 +329,7 @@ a:hover { color: var(--accent-hover); }
 .step-card h3 { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.75rem; }
 .step-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
 
-/* Footer */
+
 .footer {
   background: white;
   border-top: 1px solid var(--border);
@@ -339,7 +339,7 @@ a:hover { color: var(--accent-hover); }
   font-size: 0.8rem;
 }
 
-/* Auth Page */
+
 .login-page, .register-page { max-width: 420px; margin: 2rem auto; animation: fadeInUp 0.4s ease; }
 .auth-form {
   background: white;
@@ -360,7 +360,7 @@ a:hover { color: var(--accent-hover); }
 }
 .auth-link { text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary); }
 
-/* Browse Jobs */
+
 .browse-jobs { padding: 1rem 0; }
 .browse-jobs h1 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 400; margin-bottom: 2rem; }
 .search-bar { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
@@ -389,7 +389,7 @@ a:hover { color: var(--accent-hover); }
 .job-card:hover .job-card-title { color: var(--accent); }
 .job-card-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.82rem; color: var(--text-secondary); }
 
-/* Job Detail */
+
 .job-detail { max-width: 800px; margin: 0 auto; }
 .job-header { margin-bottom: 2.5rem; }
 .job-header h1 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 400; margin-bottom: 1rem; }
@@ -405,7 +405,7 @@ a:hover { color: var(--accent-hover); }
 }
 .bid-form h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.25rem; font-weight: 400; }
 
-/* Alerts */
+
 .alert {
   padding: 0.875rem 1.25rem;
   border-radius: var(--radius-sm);
@@ -437,7 +437,7 @@ a:hover { color: var(--accent-hover); }
   color: var(--text-secondary);
 }
 
-/* Bid Cards */
+
 .bid-card {
   background: white;
   border-radius: var(--radius);
@@ -451,7 +451,7 @@ a:hover { color: var(--accent-hover); }
 .bid-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
 .app-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; }
 
-/* Dashboard */
+
 .dashboard h1 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 400; margin-bottom: 1.5rem; }
 .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
 .list-card {
@@ -475,7 +475,7 @@ a:hover { color: var(--accent-hover); }
 .list-item a { color: var(--text); font-size: 0.9rem; }
 .list-item a:hover { color: var(--accent); }
 
-/* Filter Tabs */
+
 .filter-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
 .filter-tab {
   padding: 0.4rem 1rem;
@@ -492,7 +492,7 @@ a:hover { color: var(--accent-hover); }
 .filter-tab:hover { border-color: var(--accent); color: var(--accent); }
 .filter-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-/* Admin */
+
 .admin-dashboard { padding: 1rem 0; }
 .admin-dashboard h1 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 400; margin-bottom: 1.5rem; }
 .admin-table { width: 100%; background: white; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
@@ -507,7 +507,7 @@ a:hover { color: var(--accent-hover); }
 .category-list { display: grid; gap: 0.75rem; }
 .category-item { background: white; padding: 1rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); }
 
-/* Freelancers Grid */
+
 .freelancers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; padding: 1rem 0; }
 .freelancer-card {
   background: white;
@@ -545,7 +545,7 @@ a:hover { color: var(--accent-hover); }
   color: var(--text-secondary);
 }
 
-/* Profile */
+
 .profile-page { max-width: 600px; margin: 0 auto; }
 .profile-page h1 { font-family: var(--font-display); font-size: 2rem; font-weight: 400; }
 .profile-header { text-align: center; margin-bottom: 2rem; }
@@ -564,20 +564,20 @@ a:hover { color: var(--accent-hover); }
 }
 .profile-form input:focus, .profile-form textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
 
-/* Job Meta */
+
 .job-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-secondary); }
 
-/* Contract Info */
+
 .contract-info { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 2rem; box-shadow: var(--shadow); }
 .contract-info h2 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.75rem; }
 
-/* Loading */
+
 .loading-spinner { text-align: center; padding: 4rem; color: var(--text-muted); font-size: 0.9rem; }
 .page-title { font-family: var(--font-display); font-size: 2.5rem; font-weight: 400; margin-bottom: 2rem; }
 .my-jobs-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
 .my-jobs-header h1 { font-family: var(--font-display); font-size: 2.25rem; font-weight: 400; margin: 0; }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .hero-title { font-size: 2.5rem; }
   .hero { padding: 3rem 0 2rem; }

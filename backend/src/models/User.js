@@ -22,8 +22,9 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   role: {
-    type: DataTypes.ENUM('employer', 'freelancer', 'admin'),
+    type: DataTypes.STRING(20),
     defaultValue: 'freelancer',
+    validate: { isIn: [['employer', 'freelancer', 'admin']] },
   },
   avatar: {
     type: DataTypes.STRING(255),
@@ -32,8 +33,15 @@ const User = sequelize.define('User', {
     type: DataTypes.TEXT,
   },
   skills: {
-    type: DataTypes.ARRAY(DataTypes.TEXT),
-    defaultValue: [],
+    type: DataTypes.TEXT,
+    defaultValue: '[]',
+    get() {
+      const raw = this.getDataValue('skills');
+      return raw ? JSON.parse(raw) : [];
+    },
+    set(val) {
+      this.setDataValue('skills', JSON.stringify(val));
+    },
   },
 }, {
   tableName: 'users',

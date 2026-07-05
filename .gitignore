@@ -1,5 +1,7 @@
 node_modules/
 .env
+*.sqlite
+*.sqlite3
 uploads/*.pdf
 uploads/*.doc
 uploads/*.docx

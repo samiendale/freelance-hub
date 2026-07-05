@@ -1,10 +1,10 @@
 # FreelanceHub
 
-A full-stack freelancing platform connecting employers with freelancers. Built with Node.js, Express.js, React, and PostgreSQL.
+A full-stack freelancing platform connecting employers with freelancers. Built with Node.js, Express.js, React, and SQLite.
 
 ## Tech Stack
 
-- **Backend**: Node.js, Express.js, Sequelize (ORM), PostgreSQL
+- **Backend**: Node.js, Express.js, Sequelize (ORM), SQLite
 - **Frontend**: React (Vite), React Router v6, Axios
 - **Authentication**: JWT (access + refresh tokens), bcrypt password hashing
 - **Logging**: Morgan (HTTP), Winston (application with file rotation)
@@ -61,7 +61,6 @@ A full-stack freelancing platform connecting employers with freelancers. Built w
 
 ### Prerequisites
 - Node.js (v16+)
-- PostgreSQL (v12+)
 
 ### 1. Clone the repository
 ```bash
@@ -73,14 +72,14 @@ cd freelance-platform
 ```bash
 cd backend
 cp .env.example .env
-# Edit .env with your database credentials
 npm install
 ```
 
 ### 3. Database Setup
-Create a PostgreSQL database and run the DDL script:
+SQLite is used — no separate database server needed. The database file is created automatically.
+To initialize the schema, run the DDL script:
 ```bash
-psql -U postgres -d freelance_platform -f database/ddl.sql
+sqlite3 database.sqlite < database/ddl.sql
 ```
 
 Optionally seed with sample data:
@@ -132,11 +131,7 @@ npm run dev
 |----------|-------------|---------|
 | PORT | Backend server port | 5000 |
 | NODE_ENV | Environment mode | development |
-| DB_HOST | Database host | localhost |
-| DB_PORT | Database port | 5432 |
-| DB_NAME | Database name | freelance_platform |
-| DB_USER | Database user | postgres |
-| DB_PASSWORD | Database password | - |
+| DATABASE_PATH | SQLite database file path | ./database.sqlite |
 | JWT_SECRET | JWT signing secret | (auto-generated) |
 | JWT_EXPIRES_IN | Access token expiry | 15m |
 | JWT_REFRESH_SECRET | Refresh token secret | (auto-generated) |

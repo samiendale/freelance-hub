@@ -9,8 +9,8 @@ async function seed() {
     await sequelize.authenticate();
     console.log('Database connected.');
 
-    await sequelize.query('TRUNCATE TABLE reviews, contracts, applications, notifications, jobs, categories, users RESTART IDENTITY CASCADE');
-    console.log('Cleared existing data (sequences reset).');
+    await sequelize.sync({ force: true });
+    console.log('Tables created.');
 
     // ── Users ──
     const pwd = await hashPassword('password123');

@@ -32,8 +32,9 @@ const Job = sequelize.define('Job', {
     type: DataTypes.DATEONLY,
   },
   status: {
-    type: DataTypes.ENUM('open', 'in_progress', 'completed', 'cancelled'),
+    type: DataTypes.STRING(20),
     defaultValue: 'open',
+    validate: { isIn: [['open', 'in_progress', 'completed', 'cancelled']] },
   },
 }, {
   tableName: 'jobs',

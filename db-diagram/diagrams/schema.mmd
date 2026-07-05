@@ -1,0 +1,93 @@
+erDiagram
+    users ||--o{ jobs : "posts"
+    users ||--o{ applications : "applies"
+    users ||--o{ contracts_employer : "employs"
+    users ||--o{ contracts_freelancer : "works_on"
+    users ||--o{ notifications : "receives"
+    users ||--o{ reviews_written : "writes"
+    users ||--o{ reviews_received : "reviewed_as"
+    categories ||--o{ jobs : "categorizes"
+    jobs ||--o{ applications : "receives"
+    jobs ||--o{ contracts : "creates"
+    applications ||--o{ contracts : "originates"
+    contracts ||--o{ reviews : "has"
+
+    users {
+        int id PK
+        varchar name
+        varchar email UK
+        varchar password_hash
+        enum role
+        varchar avatar
+        text bio
+        text[] skills
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    categories {
+        int id PK
+        varchar name
+        varchar slug UK
+        text description
+        timestamptz created_at
+    }
+
+    jobs {
+        int id PK
+        int employer_id FK
+        int category_id FK
+        varchar title
+        text description
+        decimal budget_min
+        decimal budget_max
+        date deadline
+        enum status
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    applications {
+        int id PK
+        int job_id FK
+        int freelancer_id FK
+        varchar name
+        varchar resume_url
+        text cover_letter
+        enum status
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    contracts {
+        int id PK
+        int job_id FK
+        int employer_id FK
+        int freelancer_id FK
+        int application_id FK
+        timestamptz start_date
+        timestamptz end_date
+        enum status
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    notifications {
+        int id PK
+        int user_id FK
+        varchar type
+        text message
+        varchar link
+        boolean read
+        timestamptz created_at
+    }
+
+    reviews {
+        int id PK
+        int contract_id FK
+        int reviewer_id FK
+        int reviewee_id FK
+        int rating
+        text comment
+        timestamptz created_at
+    }
