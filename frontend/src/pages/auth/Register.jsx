@@ -27,7 +27,12 @@ export default function Register() {
       else if (user.role === 'freelancer') navigate('/freelancer/dashboard')
       else if (user.role === 'admin') navigate('/admin/dashboard')
     } catch (err) {
-      setError(err.response?.data?.error || err.message || 'Registration failed')
+      const data = err.response?.data
+      if (data?.details && Array.isArray(data.details)) {
+        setError(data.details.map((d) => d.message).join('; '))
+      } else {
+        setError(data?.error || err.message || 'Registration failed')
+      }
     }
   }
 
@@ -46,7 +51,10 @@ export default function Register() {
         </div>
         <div className="form-group">
           <label>Password</label>
-          <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 6 characters" required />
+          <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" required />
+          <small style={{ color: '#64748b', fontSize: '0.75rem', marginTop: '0.25rem', display: 'block' }}>
+            Must have uppercase, lowercase, number &amp; special character
+          </small>
         </div>
         <div className="form-group">
           <label>Confirm Password</label>
