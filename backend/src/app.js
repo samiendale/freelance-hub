@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const rateLimit = require('express-rate-limit');
 const path = require('path');
 const config = require('./config/env');
 const logger = require('./utils/logger');
 const errorHandler = require('./middleware/errorHandler');
+const limiter = require('./middleware/rateLimiter');
 const sequelize = require('./config/db');
 
 const authRoutes = require('./routes/auth');
@@ -27,11 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 const morganStream = { write: (message) => logger.info(message.trim()) };
 app.use(morgan('combined', { stream: morganStream }));
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: process.env.NODE_ENV === 'production' ? 100 : 1000,
-  message: { error: 'Too many requests, please try again later' },
-});
 app.use('/api', limiter);
 
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
