@@ -108,23 +108,6 @@ npm run dev
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:5000/api
 
-## Test Accounts
-
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@example.com | admin123 |
-| Employer | sarah@techcorp.com | password123 |
-| Employer | mike@startup.io | password123 |
-| Employer | emily@designlab.com | password123 |
-| Employer | james@webagency.com | password123 |
-| Freelancer | alex@email.com | password123 |
-| Freelancer | jessica@email.com | password123 |
-| Freelancer | david@email.com | password123 |
-| Freelancer | maria@email.com | password123 |
-| Freelancer | tom@email.com | password123 |
-| Freelancer | sophie@email.com | password123 |
-| Freelancer | liam@email.com | password123 |
-
 ## Environment Variables (.env)
 
 | Variable | Description | Default |
