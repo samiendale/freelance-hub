@@ -8,6 +8,7 @@ import BrowseJobs from './pages/BrowseJobs'
 import JobDetail from './pages/JobDetail'
 import EmployerDashboard from './pages/employer/Dashboard'
 import EmployerPostJob from './pages/employer/PostJob'
+import EmployerEditJob from './pages/employer/EditJob'
 import EmployerMyJobs from './pages/employer/MyJobs'
 import EmployerJobDetail from './pages/employer/JobDetail'
 import FreelancerDashboard from './pages/freelancer/Dashboard'
@@ -37,6 +38,9 @@ export default function App() {
         } />
         <Route path="/employer/jobs/:id" element={
           <ProtectedRoute roles={['employer']}><EmployerJobDetail /></ProtectedRoute>
+        } />
+        <Route path="/employer/jobs/:id/edit" element={
+          <ProtectedRoute roles={['employer']}><EmployerEditJob /></ProtectedRoute>
         } />
 
         <Route path="/freelancer/dashboard" element={

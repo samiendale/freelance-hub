@@ -17,7 +17,7 @@ async function seed() {
     const adminPwd = await hashPassword('admin123');
 
     const users = await User.bulkCreate([
-      { name: 'Admin User', email: 'admin@example.com', password_hash: adminPwd, role: 'admin', bio: 'Platform administrator.' },
+      { name: 'Admin User', email: 'admin@email.com', password_hash: adminPwd, role: 'admin', bio: 'Platform administrator.' },
       { name: 'Sarah Johnson', email: 'sarah@techcorp.com', password_hash: pwd, role: 'employer', bio: 'CTO at TechCorp.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah' },
       { name: 'Mike Chen', email: 'mike@startup.io', password_hash: pwd, role: 'employer', bio: 'Founder of a fintech startup.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=mike' },
       { name: 'Emily Davis', email: 'emily@designlab.com', password_hash: pwd, role: 'employer', bio: 'Creative director at DesignLab.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=emily' },
@@ -116,7 +116,7 @@ async function seed() {
 
     console.log('\n--- Seeding complete! ---');
     console.log('Login credentials:');
-    console.log('  Admin:      admin@example.com / admin123');
+    console.log('  Admin:      admin@email.com / admin123');
     console.log('  Employers:  sarah@techcorp.com, mike@startup.io, emily@designlab.com, james@webagency.com');
     console.log('  Freelancers: alex@email.com, jessica@email.com, david@email.com, maria@email.com,');
     console.log('               tom@email.com, sophie@email.com, liam@email.com');

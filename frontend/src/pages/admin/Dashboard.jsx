@@ -9,7 +9,10 @@ const Dashboard = () => {
     const fetchStats = async () => {
       try {
         const { data } = await api.get('/admin/stats');
-        setStats(data);
+        const totalUsers = data.users.reduce((s, r) => s + parseInt(r.count), 0);
+        const totalJobs = data.jobs.reduce((s, r) => s + parseInt(r.count), 0);
+        const totalContracts = data.contracts.reduce((s, r) => s + parseInt(r.count), 0);
+        setStats({ totalUsers, totalJobs, totalContracts });
       } catch (err) {
         console.error('Failed to fetch admin stats', err);
       }
@@ -34,10 +37,6 @@ const Dashboard = () => {
         <div className="stat-card">
           <div className="stat-number">{stats.totalContracts}</div>
           <div className="stat-label">Total Contracts</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">${stats.totalRevenue || 0}</div>
-          <div className="stat-label">Total Revenue</div>
         </div>
       </div>
 

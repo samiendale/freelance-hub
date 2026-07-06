@@ -62,23 +62,27 @@ export default function MyJobs() {
       <div className="jobs-list animate-in-d3">
         {filteredJobs.length === 0 && <p>No jobs found.</p>}
         {filteredJobs.map((job) => (
-          <Link
-            key={job.id}
-            to={`/employer/jobs/${job.id}`}
-            className="job-card"
-          >
-            <div className="job-card-header">
-              <h3>{job.title}</h3>
-              <span className={`badge badge-${job.status}`}>
-                {statusLabels[job.status] || job.status}
-              </span>
-            </div>
-            <div className="job-card-body">
-              <span>Budget: ${job.budget_min} - ${job.budget_max}</span>
-              <span>Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
-              <span>Bids: {job.bidCount || 0}</span>
-            </div>
-          </Link>
+          <div key={job.id} className="job-card" style={{ cursor: 'default' }}>
+            <Link to={`/employer/jobs/${job.id}`} style={{ textDecoration: 'none', color: 'inherit', flex: 1 }}>
+              <div className="job-card-header">
+                <h3>{job.title}</h3>
+                <span className={`badge badge-${job.status}`}>
+                  {statusLabels[job.status] || job.status}
+                </span>
+              </div>
+              <div className="job-card-body">
+                <span>Budget: ${job.budget_min} - ${job.budget_max}</span>
+                <span>Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
+                <span>Bids: {job.bidCount || 0}</span>
+              </div>
+            </Link>
+            {job.status === 'open' && (
+              <div className="job-card-actions" style={{ padding: '0.5rem 1rem', display: 'flex', gap: '0.5rem', borderTop: '1px solid var(--border-light)' }}>
+                <Link to={`/employer/jobs/${job.id}/edit`} className="btn btn-sm btn-primary">Edit</Link>
+                <button className="btn btn-sm btn-danger" onClick={async (e) => { e.preventDefault(); if (confirm('Delete this job?')) { await api.delete(`/jobs/${job.id}`); setJobs(prev => prev.filter(j => j.id !== job.id)); } }}>Delete</button>
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>

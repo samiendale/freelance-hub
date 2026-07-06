@@ -3,15 +3,17 @@ import api from '../../services/api';
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    const timer = setTimeout(() => fetchUsers(), 300);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   const fetchUsers = async () => {
     try {
-      const { data } = await api.get('/admin/users');
-      setUsers(data);
+      const { data } = await api.get('/admin/users', { params: { search } });
+      setUsers(data.users);
     } catch (err) {
       console.error('Failed to fetch users', err);
     }
@@ -30,6 +32,15 @@ const ManageUsers = () => {
   return (
     <div className="admin-page animate-in">
       <h1 className="animate-in-d1">Manage Users</h1>
+      <div className="admin-search animate-in-d2">
+        <input
+          className="form-input"
+          type="text"
+          placeholder="Search by name, email, or role..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
       <table className="admin-table animate-in-d2">
         <thead>
           <tr className="admin-table-header">

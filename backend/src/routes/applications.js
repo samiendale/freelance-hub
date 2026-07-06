@@ -16,7 +16,10 @@ router.post(
   authenticate,
   authorize('freelancer'),
   upload.single('resume'),
-  body('name').notEmpty().withMessage('Name is required'),
+  body('name')
+    .trim()
+    .notEmpty().withMessage('Name is required')
+    .matches(/^[^\d]+$/).withMessage('Name cannot contain numbers'),
   body('cover_letter').notEmpty().withMessage('Cover letter is required'),
   validate,
   applicationController.apply

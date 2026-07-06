@@ -12,8 +12,9 @@ router.post(
   '/',
   authenticate,
   authorize('admin'),
-  body('name').notEmpty().withMessage('Name is required'),
-  body('slug').notEmpty().withMessage('Slug is required'),
+  body('name').trim().notEmpty().withMessage('Name is required'),
+  body('slug').trim().notEmpty().withMessage('Slug is required')
+    .matches(/^[a-z0-9-]+$/).withMessage('Slug can only contain lowercase letters, numbers, and hyphens'),
   validate,
   categoryController.create
 );

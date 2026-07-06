@@ -8,9 +8,20 @@ const router = Router();
 
 router.post(
   '/register',
-  body('name').notEmpty().withMessage('Name is required'),
-  body('email').isEmail().withMessage('Valid email is required'),
-  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+  body('name')
+    .trim()
+    .notEmpty().withMessage('Name is required')
+    .matches(/^[^\d]+$/).withMessage('Name cannot contain numbers'),
+  body('email')
+    .trim()
+    .normalizeEmail()
+    .isEmail().withMessage('Valid email is required'),
+  body('password')
+    .isLength({ min: 8 }).withMessage('Password must be at least 8 characters')
+    .matches(/[A-Z]/).withMessage('Password must contain an uppercase letter')
+    .matches(/[a-z]/).withMessage('Password must contain a lowercase letter')
+    .matches(/\d/).withMessage('Password must contain a number')
+    .matches(/[^A-Za-z0-9]/).withMessage('Password must contain a special character'),
   body('role').isIn(['employer', 'freelancer']).withMessage('Role must be employer or freelancer'),
   validate,
   register
@@ -18,7 +29,10 @@ router.post(
 
 router.post(
   '/login',
-  body('email').isEmail().withMessage('Valid email is required'),
+  body('email')
+    .trim()
+    .normalizeEmail()
+    .isEmail().withMessage('Valid email is required'),
   body('password').notEmpty().withMessage('Password is required'),
   validate,
   login

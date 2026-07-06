@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import api from '../../services/api'
+import { useAuth } from '../../context/AuthContext'
 
 const statusLabels = {
   open: 'Open',
@@ -12,6 +13,7 @@ const statusLabels = {
 export default function JobDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [job, setJob] = useState(null)
   const [applications, setApplications] = useState([])
   const [loading, setLoading] = useState(true)
@@ -44,6 +46,16 @@ export default function JobDetail() {
     }
   }
 
+  const handleDelete = async () => {
+    if (!confirm('Are you sure you want to delete this job?')) return
+    try {
+      await api.delete(`/jobs/${job.id}`)
+      navigate('/employer/jobs')
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   if (loading) return <div className="job-detail animate-in">Loading...</div>
   if (!job) return <div className="job-detail animate-in">Job not found.</div>
 
@@ -64,6 +76,12 @@ export default function JobDetail() {
           <span>Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
           <span>Category: {job.category?.name || 'N/A'}</span>
         </div>
+        {job.status === 'open' && user?.id === job.employer_id && (
+          <div className="job-actions" style={{ marginTop: '1rem', display: 'flex', gap: '0.75rem' }}>
+            <Link to={`/employer/jobs/${job.id}/edit`} className="btn btn-primary btn-sm">Edit Job</Link>
+            <button className="btn btn-danger btn-sm" onClick={handleDelete}>Delete Job</button>
+          </div>
+        )}
       </div>
 
       {job.contract && (

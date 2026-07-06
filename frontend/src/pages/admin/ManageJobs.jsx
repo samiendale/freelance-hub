@@ -3,15 +3,17 @@ import api from '../../services/api';
 
 const ManageJobs = () => {
   const [jobs, setJobs] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetchJobs();
-  }, []);
+    const timer = setTimeout(() => fetchJobs(), 300);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   const fetchJobs = async () => {
     try {
-      const { data } = await api.get('/admin/jobs');
-      setJobs(data);
+      const { data } = await api.get('/admin/jobs', { params: { search } });
+      setJobs(data.jobs);
     } catch (err) {
       console.error('Failed to fetch jobs', err);
     }
@@ -29,6 +31,15 @@ const ManageJobs = () => {
   return (
     <div className="admin-page animate-in">
       <h1 className="animate-in-d1">Manage Jobs</h1>
+      <div className="admin-search animate-in-d2">
+        <input
+          className="form-input"
+          type="text"
+          placeholder="Search by title or employer name..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
       <table className="admin-table animate-in-d2">
         <thead>
           <tr className="admin-table-header">
@@ -44,7 +55,7 @@ const ManageJobs = () => {
             <tr className="admin-table-row" key={job.id}>
               <td>{job.id}</td>
               <td>{job.title}</td>
-              <td>{job.employer_name}</td>
+              <td>{job.employer?.name || 'N/A'}</td>
               <td>
                 <select
                   className="status-select"

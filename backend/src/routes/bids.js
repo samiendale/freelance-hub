@@ -14,9 +14,9 @@ router.post(
   '/jobs/:jobId',
   authenticate,
   authorize('freelancer'),
-  body('amount').isNumeric(),
-  body('description').notEmpty(),
-  body('timeline').isInt(),
+  body('amount').isNumeric().withMessage('Amount must be a number'),
+  body('description').trim().notEmpty().withMessage('Description is required'),
+  body('timeline').isInt().withMessage('Timeline must be a number'),
   validate,
   bidController.createBid
 );

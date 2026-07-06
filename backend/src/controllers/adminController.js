@@ -1,4 +1,4 @@
-const { User, Job, Contract, Review, Bid } = require('../models');
+const { User, Job, Contract, Review } = require('../models');
 const { Op } = require('sequelize');
 const logger = require('../utils/logger');
 
@@ -19,26 +19,10 @@ async function getStats(req, res) {
       group: ['status'],
     });
 
-    const revenueResult = await Contract.findAll({
-      attributes: [[require('sequelize').fn('COALESCE', require('sequelize').fn('SUM', require('sequelize').col('bid.amount')), 0), 'total']],
-      where: { status: 'completed' },
-      include: [
-        {
-          model: Bid,
-          as: 'bid',
-          attributes: [],
-        },
-      ],
-      raw: true,
-    });
-
-    const totalRevenue = parseFloat(revenueResult[0]?.total || 0);
-
     return res.json({
       users: usersByRole,
       jobs: jobsByStatus,
       contracts: contractsByStatus,
-      totalRevenue,
     });
   } catch (err) {
     logger.error('Error fetching stats:', err);
@@ -51,8 +35,20 @@ async function manageUsers(req, res) {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const offset = (page - 1) * limit;
+    const search = req.query.search || '';
+
+    const where = search
+      ? {
+          [Op.or]: [
+            { name: { [Op.like]: `%${search}%` } },
+            { email: { [Op.like]: `%${search}%` } },
+            { role: { [Op.like]: `%${search}%` } },
+          ],
+        }
+      : {};
 
     const { count, rows } = await User.findAndCountAll({
+      where,
       attributes: { exclude: ['password_hash'] },
       limit,
       offset,
@@ -114,8 +110,19 @@ async function manageJobs(req, res) {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const offset = (page - 1) * limit;
+    const search = req.query.search || '';
+
+    const where = search
+      ? {
+          [Op.or]: [
+            { title: { [Op.like]: `%${search}%` } },
+            { '$employer.name$': { [Op.like]: `%${search}%` } },
+          ],
+        }
+      : {};
 
     const { count, rows } = await Job.findAndCountAll({
+      where,
       include: [
         {
           model: User,

@@ -18,7 +18,8 @@ router.get('/jobs', adminController.manageJobs);
 
 router.patch(
   '/jobs/:id/status',
-  body('status').notEmpty().withMessage('Status is required'),
+  body('status').notEmpty().withMessage('Status is required')
+    .isIn(['open', 'in_progress', 'completed', 'cancelled']).withMessage('Status must be open, in_progress, completed, or cancelled'),
   validate,
   adminController.updateJobStatus
 );

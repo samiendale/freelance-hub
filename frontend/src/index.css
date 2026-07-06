@@ -504,6 +504,8 @@ a:hover { color: var(--accent-hover); }
 .status-select { padding: 0.4rem 0.75rem; background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: var(--font-body); font-size: 0.8rem; cursor: pointer; }
 .admin-form { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
 .admin-form .form-input { max-width: 300px; }
+.admin-search { margin-bottom: 1rem; }
+.admin-search .form-input { max-width: 400px; }
 .category-list { display: grid; gap: 0.75rem; }
 .category-item { background: white; padding: 1rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); }
 

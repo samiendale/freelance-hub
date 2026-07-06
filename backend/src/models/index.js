@@ -5,6 +5,7 @@ const Application = require('./Application');
 const Contract = require('./Contract');
 const Review = require('./Review');
 const Notification = require('./Notification');
+const Bid = require('./Bid');
 
 User.hasMany(Job, { foreignKey: 'employer_id', as: 'jobs' });
 Job.belongsTo(User, { foreignKey: 'employer_id', as: 'employer' });
@@ -40,4 +41,10 @@ Review.belongsTo(User, { foreignKey: 'reviewee_id', as: 'reviewee' });
 User.hasMany(Notification, { foreignKey: 'user_id', as: 'notifications' });
 Notification.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
-module.exports = { User, Category, Job, Application, Contract, Review, Notification };
+Job.hasMany(Bid, { foreignKey: 'job_id', as: 'bids' });
+Bid.belongsTo(Job, { foreignKey: 'job_id', as: 'job' });
+
+User.hasMany(Bid, { foreignKey: 'freelancer_id', as: 'bids' });
+Bid.belongsTo(User, { foreignKey: 'freelancer_id', as: 'freelancer' });
+
+module.exports = { User, Category, Job, Application, Contract, Review, Notification, Bid };

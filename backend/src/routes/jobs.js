@@ -16,8 +16,10 @@ router.post(
   '/',
   authenticate,
   authorize('employer'),
-  body('title').notEmpty().withMessage('Title is required'),
-  body('description').notEmpty().withMessage('Description is required'),
+  body('title').trim().notEmpty().withMessage('Title is required')
+    .isLength({ min: 5 }).withMessage('Title must be at least 5 characters'),
+  body('description').trim().notEmpty().withMessage('Description is required')
+    .isLength({ min: 20 }).withMessage('Description must be at least 20 characters'),
   validate,
   jobController.createJob
 );
@@ -26,8 +28,10 @@ router.put(
   '/:id',
   authenticate,
   authorize('employer'),
-  body('title').optional().notEmpty().withMessage('Title cannot be empty'),
-  body('description').optional().notEmpty().withMessage('Description cannot be empty'),
+  body('title').optional().trim().notEmpty().withMessage('Title cannot be empty')
+    .isLength({ min: 5 }).withMessage('Title must be at least 5 characters'),
+  body('description').optional().trim().notEmpty().withMessage('Description cannot be empty')
+    .isLength({ min: 20 }).withMessage('Description must be at least 20 characters'),
   validate,
   jobController.updateJob
 );

@@ -13,7 +13,8 @@ router.get('/:id', authenticate, contractController.getContract);
 router.patch(
   '/:id/status',
   authenticate,
-  body('status').notEmpty().withMessage('Status is required'),
+  body('status').notEmpty().withMessage('Status is required')
+    .isIn(['active', 'completed', 'terminated']).withMessage('Status must be active, completed, or terminated'),
   validate,
   contractController.updateContractStatus
 );
