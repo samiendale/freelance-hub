@@ -58,15 +58,27 @@ const BrowseJobs = () => {
         </select>
       </div>
 
-      <div className="jobs-list animate-in-d4">
-        {jobs.map((job) => (
-          <Link to={`/jobs/${job.id}`} className="job-card" key={job.id}>
-            <div className="job-card-title">{job.title}</div>
-            <div className="job-card-meta">
-              <span>{job.employer?.name || 'Unknown'}</span>
-              <span>{job.category?.name || 'General'}</span>
-              <span>${job.budget_min} - ${job.budget_max}</span>
-              {job.deadline && <span>Deadline: {new Date(job.deadline).toLocaleDateString()}</span>}
+      <div className="jobs-grid animate-in-d4">
+        {jobs.length === 0 && <p className="no-results">No jobs found.</p>}
+        {jobs.map((job, i) => (
+          <Link to={`/jobs/${job.id}`} className="job-card" key={job.id} style={{ animationDelay: `${i * 0.05}s` }}>
+            <div className="job-card-top">
+              <span className="job-card-category">{job.category?.name || 'General'}</span>
+              {job.deadline && (
+                <span className="job-card-deadline">{new Date(job.deadline).toLocaleDateString()}</span>
+              )}
+            </div>
+            <h3 className="job-card-title">{job.title}</h3>
+            <p className="job-card-employer">{job.employer?.name || 'Unknown'}</p>
+            <p className="job-card-desc">
+              {job.description?.length > 120
+                ? job.description.slice(0, 120) + '...'
+                : job.description}
+            </p>
+            <div className="job-card-footer">
+              <span className="job-card-budget">
+                ${job.budget_min?.toLocaleString()} – ${job.budget_max?.toLocaleString()}
+              </span>
             </div>
           </Link>
         ))}
