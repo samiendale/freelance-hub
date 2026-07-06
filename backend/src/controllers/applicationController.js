@@ -161,4 +161,46 @@ async function acceptApplication(req, res) {
   }
 }
 
-module.exports = { getJobApplications, apply, getMyApplications, acceptApplication };
+async function rejectApplication(req, res) {
+  try {
+    const { id } = req.params;
+    const { rejection_reason } = req.body;
+
+    const application = await Application.findByPk(id, {
+      include: [
+        { model: Job, as: 'job' },
+        { model: User, as: 'freelancer', attributes: ['name'] },
+      ],
+    });
+
+    if (!application) {
+      return res.status(404).json({ error: 'Application not found' });
+    }
+
+    if (req.user.id !== application.job.employer_id) {
+      return res.status(403).json({ error: 'You do not own this job' });
+    }
+
+    if (application.status !== 'pending') {
+      return res.status(400).json({ error: 'Application is not pending' });
+    }
+
+    await application.update({ status: 'rejected', rejection_reason });
+
+    await Notification.create({
+      user_id: application.freelancer_id,
+      type: 'application_rejected',
+      message: rejection_reason
+        ? `Your application for "${application.job.title}" was rejected: ${rejection_reason}`
+        : `Your application for "${application.job.title}" was rejected`,
+      link: '/freelancer/applications',
+    });
+
+    return res.json({ message: 'Application rejected', application });
+  } catch (err) {
+    logger.error('Error rejecting application:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+module.exports = { getJobApplications, apply, getMyApplications, acceptApplication, rejectApplication };

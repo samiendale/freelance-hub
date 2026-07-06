@@ -37,9 +37,24 @@ export default function JobDetail() {
     fetchData()
   }, [id])
 
+  const [rejectAppId, setRejectAppId] = useState(null)
+  const [rejectReason, setRejectReason] = useState('')
+
   const handleAccept = async (appId) => {
     try {
       await api.patch(`/applications/${appId}/accept`)
+      fetchData()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleReject = async () => {
+    if (!rejectReason.trim()) return
+    try {
+      await api.patch(`/applications/${rejectAppId}/reject`, { rejection_reason: rejectReason })
+      setRejectAppId(null)
+      setRejectReason('')
       fetchData()
     } catch (err) {
       console.error(err)
@@ -112,13 +127,46 @@ export default function JobDetail() {
               <p><a href={`${app.resume_url}`} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-secondary">View Resume</a></p>
             )}
             {app.status === 'pending' && (
-              <button className="btn btn-success btn-sm" onClick={() => handleAccept(app.id)}>
-                Accept Application
-              </button>
+              <div className="app-actions" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                <button className="btn btn-success btn-sm" onClick={() => handleAccept(app.id)}>
+                  Accept Application
+                </button>
+                <button className="btn btn-danger btn-sm" onClick={() => setRejectAppId(app.id)}>
+                  Reject
+                </button>
+              </div>
+            )}
+            {app.status === 'rejected' && app.rejection_reason && (
+              <p className="rejection-reason" style={{ color: '#dc3545', fontSize: '0.875rem', marginTop: '0.5rem' }}>
+                Reason: {app.rejection_reason}
+              </p>
             )}
           </div>
         ))}
       </div>
+
+      {rejectAppId && (
+        <div className="modal-overlay" onClick={() => { setRejectAppId(null); setRejectReason('') }}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Reject Application</h3>
+            <p style={{ marginBottom: '0.75rem', color: '#666' }}>Let the freelancer know why:</p>
+            <textarea
+              className="input"
+              rows="3"
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+              placeholder="Enter rejection reason..."
+              style={{ width: '100%', marginBottom: '1rem', resize: 'vertical' }}
+            />
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+              <button className="btn btn-sm" onClick={() => { setRejectAppId(null); setRejectReason('') }}>Cancel</button>
+              <button className="btn btn-danger btn-sm" onClick={handleReject} disabled={!rejectReason.trim()}>
+                Submit Rejection
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -31,6 +31,9 @@ const Application = sequelize.define('Application', {
     defaultValue: 'pending',
     validate: { isIn: [['pending', 'accepted', 'rejected']] },
   },
+  rejection_reason: {
+    type: DataTypes.TEXT,
+  },
 }, {
   tableName: 'applications',
   timestamps: true,

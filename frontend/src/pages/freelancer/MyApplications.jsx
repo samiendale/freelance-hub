@@ -58,6 +58,11 @@ export default function MyApplications() {
               <span className={`badge badge-${app.status}`}>{app.status}</span>
             </div>
             <p>{app.cover_letter}</p>
+            {app.status === 'rejected' && app.rejection_reason && (
+              <p className="rejection-reason" style={{ color: '#dc3545', fontSize: '0.875rem', marginTop: '0.5rem' }}>
+                Reason: {app.rejection_reason}
+              </p>
+            )}
             <p className="app-meta">Submitted: {new Date(app.created_at).toLocaleDateString()}</p>
           </div>
         ))

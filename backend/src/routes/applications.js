@@ -27,4 +27,15 @@ router.post(
 
 router.patch('/:id/accept', authenticate, authorize('employer'), applicationController.acceptApplication);
 
+router.patch(
+  '/:id/reject',
+  authenticate,
+  authorize('employer'),
+  body('rejection_reason')
+    .trim()
+    .notEmpty().withMessage('Rejection reason is required'),
+  validate,
+  applicationController.rejectApplication
+);
+
 module.exports = router;
